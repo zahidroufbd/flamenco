@@ -1,0 +1,71 @@
+sudo apt install apache2
+sudo apt-get install mysql-server
+sudo apt install -y python-mysqldb
+
+##  install
+/home/za/Downloads/flamenco-1.0
+./install
+
+
+### allow permision to folder
+sudo chmod 777 -R html
+
+
+### restart apache
+sudo service apache2 restart
+sudo service apache2 status
+
+
+### import
+
+/home/za/flamenco/bin/flamenco import /home/za/Downloads/flamenco-1.0/example
+
+
+
+### config cgi in apache
+
+/etc/apache2
+sudo nano apache2.conf 
+
+
+#
+# "/var/www/cgi-bin" should be changed to whatever your ScriptAliased
+# CGI directory exists, if you have that configured.
+#
+<Directory "/var/www/cgi-bin">
+    AllowOverride None
+    Options None
+    Require all granted
+</Directory>
+
+Options +ExecCGI
+AddHandler cgi-script .cgi .pl .py
+
+### create user in mysql
+
+mysql> CREATE USER 'zahid'@'localhost' IDENTIFIED BY '12345678';
+
+GRANT ALL PRIVILEGES ON * . * TO 'newuser'@'localhost';
+
+FLUSH PRIVILEGES;
+
+### INSTALL
+goto 
+/home/za/flamenco/webware
+
+python install.py
+
+
+### check background process for apache
+sudo netstat -plnt
+
+### find word in all files 
+grep -r "whrandom" "/home/za/flamenco"
+
+### link
+http://localhost:8081/cgi-bin/flamenco.cgi
+
+### official website
+https://flamenco.berkeley.edu/install.html
+
+
